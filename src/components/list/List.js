@@ -25,27 +25,37 @@ class List extends React.Component {
   componentWillMount() {
     this.fetchCurrencies();
   }
+putCurrenciesInState(data){
+  const { totalPages, currencies } = data;
 
+  this.setState({
+    currencies,
+    totalPages,
+    error: '',
+    loading: false,
+  });
+}
   fetchCurrencies() {
     const { page, perPage } = this.state;
-
+    const cacheCurrenciesKey=('currencies').concat(page);
     // Set loading to true, while we are fetching data from server
     this.setState({ loading: true });
-
-    // Fetch crypto currency data from API with page and perPage parameters
-    fetch(`${API_URL}/cryptocurrencies/?page=${page}&perPage=${perPage}`)
+    if (localStorage.getItem(cacheCurrenciesKey)) {
+      let cacheCurrencies=JSON.parse(localStorage.getItem(cacheCurrenciesKey));
+      console.log('cache');
+      this.putCurrenciesInState(cacheCurrencies);
+    
+    }
+    if(!localStorage.getItem(cacheCurrenciesKey)){
+      fetch(`${API_URL}/cryptocurrencies/?page=${page}&perPage=${perPage}`)
       .then(handleResponse)
       .then((data) => {
         // Set received data in components state
         // Clear error if any and set loading to false
-        const { totalPages, currencies } = data;
-
-        this.setState({
-          currencies,
-          totalPages,
-          error: '',
-          loading: false,
-        });
+        console.log('fetch');
+        let responseCurrencies=JSON.stringify(data);
+        localStorage.setItem(cacheCurrenciesKey,responseCurrencies);
+        this.putCurrenciesInState(data);
       })
       .catch((error) => {
         // Show error message, if request fails and set loading to false
@@ -54,7 +64,10 @@ class List extends React.Component {
           loading: false,
         });
       });
-  }
+
+    }
+    // Fetch crypto currency data from API with page and perPage parameters
+      }
 
   handlePaginationClick(direction) {
     let nextPage = this.state.page;
