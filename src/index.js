@@ -6,17 +6,15 @@ import List from './components/list/List';
 import Detail from './components/detail/Detail';
 import NotFound from './components/notfound/NotFound';
 import './index.css';
-
 const App = () => {
   return (
     <BrowserRouter>
       <div>
         <Header />
-
         <Switch>
           <Route exact path="/" component={List} />
           <Route exact path="/currency/:id" component={Detail} />
-          <Route component={NotFound} />
+          <Route  component={NotFound} />
         </Switch>
       </div>
     </BrowserRouter>
