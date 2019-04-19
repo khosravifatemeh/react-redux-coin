@@ -1,6 +1,6 @@
 import React from 'react';
 import { API_URL } from '../../config';
-import { handleResponse } from '../../helpers.js';
+import { handleResponse } from '../../helpers/http';
 import Pagination from './Pagination';
 import Loading from '../common/Loading';
 import Table from './Table';

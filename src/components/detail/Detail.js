@@ -1,6 +1,7 @@
 import React from 'react';
 import { API_URL } from '../../config';
-import { handleResponse, renderChangePercent } from '../../helpers.js';
+import { handleResponse } from '../../helpers/http';
+import {renderChangePercent} from '../../helpers/service';
 import Loading from '../common/Loading';
 import './Detail.css';
 
