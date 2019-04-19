@@ -1,8 +1,7 @@
 import React from 'react';
-import { API_URL } from '../../config';
-import { handleResponse } from '../../helpers/http';
 import {renderChangePercent} from '../../helpers/service';
 import Loading from '../common/Loading';
+import { getCoin} from '../../services/coinApi'
 import './Detail.css';
 
 class Detail extends React.Component {
@@ -38,8 +37,9 @@ class Detail extends React.Component {
     // Set loading to true, while we are fetching data from server
     this.setState({ loading: true });
 
-    fetch(`${API_URL}/cryptocurrencies/${currencyId}`)
-      .then(handleResponse)
+    // fetch(`${API_URL}/cryptocurrencies/${currencyId}`)
+    //   .then(handleResponse)
+    getCoin(currencyId)
       .then((currency) => {
         // Set received data in components state
         // Clear error if any and set loading to false

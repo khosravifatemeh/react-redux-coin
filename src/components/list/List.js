@@ -1,6 +1,7 @@
 import React from 'react';
 import { API_URL } from '../../config';
 import { handleResponse } from '../../helpers/http';
+import {getCoinList} from '../../services/coinApi'
 import Pagination from './Pagination';
 import Loading from '../common/Loading';
 import Table from './Table';
@@ -42,17 +43,17 @@ putCurrenciesInState(data){
     this.setState({ loading: true });
     if (localStorage.getItem(cacheCurrenciesKey)) {
       let cacheCurrencies=JSON.parse(localStorage.getItem(cacheCurrenciesKey));
-      console.log('cache');
       this.putCurrenciesInState(cacheCurrencies);
     
     }
     if(!localStorage.getItem(cacheCurrenciesKey)){
-      fetch(`${API_URL}/cryptocurrencies/?page=${page}&perPage=${perPage}`)
-      .then(handleResponse)
+      // fetch(`${API_URL}/cryptocurrencies/?page=${page}&perPage=${perPage}`)
+      // .then(handleResponse)
+      getCoinList({page,perPage})
       .then((data) => {
         // Set received data in components state
         // Clear error if any and set loading to false
-        console.log('fetch');
+      
         let responseCurrencies=JSON.stringify(data);
         localStorage.setItem(cacheCurrenciesKey,responseCurrencies);
         this.putCurrenciesInState(data);

@@ -33,3 +33,12 @@ export const validateUser = (path,data) => {
   }).then(handleResponse)
 
 }
+export const getHttp = (path) => {
+  return fetch(path, {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then(handleResponse)
+ 
+}

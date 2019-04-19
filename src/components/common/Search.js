@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { handleResponse } from '../../helpers/http';
+import { searchCoin } from '../../services/coinApi'
 import Loading from '../common/Loading';
 import { API_URL } from '../../config';
 import './Search.css';
@@ -33,8 +34,9 @@ class Search extends React.Component {
     // Set loading to true, while we are fetching data from server
     this.setState({ loading: true });
 
-    fetch(`${API_URL}/autocomplete?searchQuery=${searchQuery}`)
-      .then(handleResponse)
+    // fetch(`${API_URL}/autocomplete?searchQuery=${searchQuery}`)
+    // .then(handleResponse)
+    searchCoin(searchQuery)
       .then((result) => {
         this.setState({
           searchResults: result,
@@ -61,7 +63,7 @@ class Search extends React.Component {
     if (!searchQuery) {
       return '';
     }
-    
+
     if (searchResults.length > 0) {
       return (
         <div className="Search-result-container">
@@ -95,11 +97,11 @@ class Search extends React.Component {
     const { searchQuery, loading } = this.state;
 
     return (
-      
+
       <div className='Search'>
         <div>
           <span className="Search-icon" />
-          <input 
+          <input
             onChange={this.handleChange}
             type="text"
             className="Search-input"
@@ -109,7 +111,7 @@ class Search extends React.Component {
 
           {loading &&
             <div className="Search-loading">
-            <Loading
+              <Loading
                 width="12px"
                 height="12px"
               />
