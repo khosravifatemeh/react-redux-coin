@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types'
-import cardheader from './square1.png';
-import './Login.css';
+import propTypes from 'prop-types';
+import { Card, CardHeader, CardBody,Container,Row,Col } from 'reactstrap';
+import cardheader from '../../assets/images/square1.png';
+import '../../assets/css/Login.css';
 
 class LoginForm extends Component {
     // constructor (props) {
@@ -49,15 +50,15 @@ class LoginForm extends Component {
         return (
             <div className="Login">
                 <div className="Login-content">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-6 col-lg-5 offset-lg-0 offset-md-3">
-                                <div className="card card-login">
-                                    <div className="card-header">
+                    <Container>
+                        <Row>
+                            <Col md={{size:6,offset:3}} lg={{size:5,offset:0}}>
+                                <Card className="card-login">
+                                    <CardHeader>
                                         <img className="card-img" src={cardheader} />
                                         <h4 className="card-title">Login</h4>
-                                    </div>
-                                    <div className="card-body">
+                                    </CardHeader>
+                                    <CardBody>
                                         <form className="Login-Form" onSubmit={this.handleSubmit}>
                                             <div className="input-group">
                                                 <div className="input-group-prepend">
@@ -77,12 +78,12 @@ class LoginForm extends Component {
                                                 <input type="submit" className="btn btn-info btn-round btn-lg" value="Login" />
                                             </div>
                                         </form>
-                                    </div>
+                                    </CardBody>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>
                 </div>
             </div>
         );

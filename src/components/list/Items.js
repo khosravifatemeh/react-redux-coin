@@ -1,15 +1,16 @@
 import React from 'react';
+import {Table} from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import {renderChangePercent} from '../../helpers/service';
-import './Table.css';
+import '../../assets/css/Items.css';
 
-const Table = (props) => {
+const Items = (props) => {
   const { history, currencies } = props;
 
   return (
     <div className="Table-container">
-      <table className="Table">
+      <Table className="Table" borderless>
         <thead className="Table-head">
           <tr>
             <th>Cryptocurrency</th>
@@ -39,7 +40,7 @@ const Table = (props) => {
               <td>{renderChangePercent(currency.percentChange24h)}</td>
             </tr>)}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }
@@ -49,4 +50,4 @@ Table.propTypes = {
   history: PropTypes.object.isRequired,
 }
 
-export default withRouter(Table);
+export default withRouter(Items);

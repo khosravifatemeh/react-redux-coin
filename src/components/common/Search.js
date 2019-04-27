@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { handleResponse } from '../../helpers/http';
+import {InputGroup,Input,InputGroupAddon,InputGroupText} from 'reactstrap';
 import { searchCoin } from '../../services/coinApi'
 import Loading from '../common/Loading';
 import { API_URL } from '../../config';
-import './Search.css';
+import '../../assets/css/Search.css';
 
 class Search extends React.Component {
   constructor() {
@@ -100,14 +101,15 @@ class Search extends React.Component {
 
       <div className='Search'>
         <div>
-          <span className="Search-icon" />
-          <input
-            onChange={this.handleChange}
-            type="text"
-            className="Search-input"
-            placeholder="Currency name"
-            value={searchQuery}
-          />
+  
+            <form>
+              <InputGroup className="no-border">
+                <Input  className="Search-input" placeholder="Currency name"  value={searchQuery} onChange={this.handleChange} />
+                
+                  <span className="Search-icon" />
+                
+              </InputGroup>
+            </form>
 
           {loading &&
             <div className="Search-loading">

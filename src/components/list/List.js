@@ -2,9 +2,10 @@ import React from 'react';
 import { API_URL } from '../../config';
 import { handleResponse } from '../../helpers/http';
 import {getCoinList} from '../../services/coinApi'
-import Pagination from './Pagination';
+import Pagination from './PageList';
 import Loading from '../common/Loading';
-import Table from './Table';
+import Items from './Items';
+import PageList from './PageList';
 
 class List extends React.Component {
   constructor() {
@@ -98,9 +99,9 @@ putCurrenciesInState(data){
 
     return (
       <div>
-        <Table currencies={currencies} />
+        <Items currencies={currencies} />
 
-        <Pagination
+        <PageList
           page={page}
           totalPages={totalPages}
           handlePaginationClick={this.handlePaginationClick}

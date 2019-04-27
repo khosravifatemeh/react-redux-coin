@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router'
 import LoginForm from './LoginForm';
 class Login extends Component {
-    state = { redirectToReferrer: false }
+    state = { redirectToReferrer: this.props.loggedIn }
     loginToApi = (email, password) => {
         return this.props.login(email, password)
             .then(() => { this.setState({ redirectToReferrer: true }) })

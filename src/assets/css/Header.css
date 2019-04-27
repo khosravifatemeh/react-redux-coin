@@ -4,10 +4,31 @@
   width: 100%;
   height: 80px;
 }
-
+.Header .show.navbar-collapse{
+  background: #0a1a29;
+}
+.Header .show.navbar-collapse>span{
+  padding-bottom: 18px
+}
+.Header .show.navbar-collapse .nav-link{
+  padding: .5rem 1rem
+}
+.Header .show.navbar-collapse .Search{
+  width: 100%
+}
 .Header-logo {
 
   width: 90px;
+}
+.Header .nav-link i.fa+p{
+  margin-left: 6px;
+}
+.Header .nav-link p{
+  display: inline-block;
+  margin: 0;
+  line-height: 1.8em;
+  font-size: 1em;
+  font-weight: 400;
 }
 .Header .nav-link{
   color:var(--white)
@@ -24,6 +45,7 @@
 .navbar .navbar-toggler-bar+.navbar-toggler-bar {
   margin-top: 7px;
 }
+
 .navbar .navbar-toggler-bar.bar2 {
   width: 17px;
   transition: width .2s linear;

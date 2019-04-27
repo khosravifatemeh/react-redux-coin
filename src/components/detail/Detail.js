@@ -1,8 +1,9 @@
 import React from 'react';
-import {renderChangePercent} from '../../helpers/service';
+import { renderChangePercent } from '../../helpers/service';
 import Loading from '../common/Loading';
-import { getCoin} from '../../services/coinApi'
-import './Detail.css';
+import { Card, CardTitle, CardText } from 'reactstrap';
+import { getCoin } from '../../services/coinApi'
+import '../../assets/css/Detail.css';
 
 class Detail extends React.Component {
   constructor() {
@@ -27,7 +28,7 @@ class Detail extends React.Component {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       // Get id from new url params
       const currencyId = nextProps.match.params.id;
-      
+
       // Fetch currency
       this.fetchCurrency(currencyId);
     }
@@ -73,7 +74,36 @@ class Detail extends React.Component {
 
     return (
       <div className="Detail">
-        <h1 className="Detail-heading">
+      <div className="Detail-container">
+      <Card body>
+          <CardTitle> {currency.name} ({currency.symbol})</CardTitle>
+         
+          <CardText> Price <span className="Detail-value">$ {currency.price}</span></CardText>
+          <CardText>Rank <span className="Detail-value">{currency.rank}</span></CardText>
+          <CardText>
+            24H change
+            <span className="Detail-value">
+              {renderChangePercent(currency.percentChange24h)}
+            </span>
+          </CardText>
+          <CardText>
+            <span className="Detail-title">Market cap</span>
+            <span className="Detail-dollar">$</span>
+            {currency.marketCap}
+          </CardText>
+          <CardText>
+            <span className="Detail-title">24H Volume</span>
+            <span className="Detail-dollar">$</span>
+            {currency.volume24h}
+          </CardText>
+          <CardText>
+            <span className="Detail-title">Total supply</span>
+            {currency.totalSupply}
+          </CardText>
+        </Card>
+ 
+      </div>
+              {/* <h1 className="Detail-heading">
           {currency.name} ({currency.symbol})
         </h1>
 
@@ -104,7 +134,7 @@ class Detail extends React.Component {
             <span className="Detail-title">Total supply</span>
             {currency.totalSupply}
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

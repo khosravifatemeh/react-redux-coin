@@ -6,19 +6,24 @@
   margin-bottom: 40px;
   padding: 0 60px;
 }
-
-.Detail-heading {
+.Detail .cart .card-title{
   font-size: 24px;
   font-weight: 300;
 }
 
-.Detail-container {
+.Detail .Detail-container {
   width: 100%;
   max-width: 400px;
   margin-top: 30px;
-  padding: 40px 40px 0;
+  padding:40px;
   border-radius: 4px;
   box-shadow: 0px 0px 40px 0px#1f364d;
+}
+.Detail .card-body{
+  background-color: transparent;
+  border:none;
+  color: #fff;
+  padding: 0
 }
 
 .Detail-item {
