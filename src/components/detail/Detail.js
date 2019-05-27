@@ -1,143 +1,85 @@
 import React from 'react';
 import { renderChangePercent } from '../../helpers/service';
 import Loading from '../common/Loading';
+import PropTypes from 'prop-types';
 import { Card, CardTitle, CardText } from 'reactstrap';
-import { getCoin } from '../../services/coinApi'
 import '../../assets/css/Detail.css';
 
+
 class Detail extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currency: {},
-      error: '',
-      loading: false,
-    }
+  constructor(props) {
+    super(props);
   }
-
+  
   componentWillMount() {
     // Get id from url params
     const currencyId = this.props.match.params.id;
-
     // Fetch currency
-    this.fetchCurrency(currencyId);
+    this.props.getById(currencyId);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.location.pathname !== nextProps.location.pathname) {
       // Get id from new url params
       const currencyId = nextProps.match.params.id;
-
       // Fetch currency
-      this.fetchCurrency(currencyId);
+      this.props.getById(currencyId);
     }
   }
 
-  fetchCurrency(currencyId) {
-    // Set loading to true, while we are fetching data from server
-    this.setState({ loading: true });
-
-    // fetch(`${API_URL}/cryptocurrencies/${currencyId}`)
-    //   .then(handleResponse)
-    getCoin(currencyId)
-      .then((currency) => {
-        // Set received data in components state
-        // Clear error if any and set loading to false
-        this.setState({
-          currency,
-          error: '',
-          loading: false,
-        });
-      })
-      .catch((error) => {
-        // Show error message, if request fails and set loading to false
-        this.setState({
-          error: error.errorMessage,
-          loading: false,
-        });
-      });
-  }
 
   render() {
-    const { currency, loading, error } = this.state;
-
-    // Render only loading component, if loading state is set to true
+    const { currency, loading, error } = this.props;
     if (loading) {
       return <div className="loading-container"><Loading /></div>
     }
 
-    // Render only error message, if error occured while fetching data
     if (error) {
       return <div className="error">{error}</div>
     }
-
+    if (!currency) {
+      return '';
+    }
     return (
       <div className="Detail">
-      <div className="Detail-container">
-      <Card body>
-          <CardTitle> {currency.name} ({currency.symbol})</CardTitle>
-         
-          <CardText> Price <span className="Detail-value">$ {currency.price}</span></CardText>
-          <CardText>Rank <span className="Detail-value">{currency.rank}</span></CardText>
-          <CardText>
-            24H change
-            <span className="Detail-value">
-              {renderChangePercent(currency.percentChange24h)}
-            </span>
-          </CardText>
-          <CardText>
-            <span className="Detail-title">Market cap</span>
-            <span className="Detail-dollar">$</span>
-            {currency.marketCap}
-          </CardText>
-          <CardText>
-            <span className="Detail-title">24H Volume</span>
-            <span className="Detail-dollar">$</span>
-            {currency.volume24h}
-          </CardText>
-          <CardText>
-            <span className="Detail-title">Total supply</span>
-            {currency.totalSupply}
-          </CardText>
-        </Card>
- 
-      </div>
-              {/* <h1 className="Detail-heading">
-          {currency.name} ({currency.symbol})
-        </h1>
-
         <div className="Detail-container">
-          <div className="Detail-item">
-            Price <span className="Detail-value">$ {currency.price}</span>
-          </div>
-          <div className="Detail-item">
-            Rank <span className="Detail-value">{currency.rank}</span>
-          </div>
-          <div className="Detail-item">
-            24H change
+          <Card body>
+            <CardTitle> {currency.name} ({currency.symbol})</CardTitle>
+
+            <CardText> Price <span className="Detail-value">$ {currency.price}</span></CardText>
+            <CardText>Rank <span className="Detail-value">{currency.rank}</span></CardText>
+            <CardText>
+              24H change
             <span className="Detail-value">
-              {renderChangePercent(currency.percentChange24h)}
-            </span>
-          </div>
-          <div className="Detail-item">
-            <span className="Detail-title">Market cap</span>
-            <span className="Detail-dollar">$</span>
-            {currency.marketCap}
-          </div>
-          <div className="Detail-item">
-          <span className="Detail-title">24H Volume</span>
-            <span className="Detail-dollar">$</span>
-            {currency.volume24h}
-          </div>
-          <div className="Detail-item">
-            <span className="Detail-title">Total supply</span>
-            {currency.totalSupply}
-          </div>
-        </div> */}
+                {renderChangePercent(currency.percentChange24h)}
+              </span>
+            </CardText>
+            <CardText>
+              <span className="Detail-title">Market cap</span>
+              <span className="Detail-dollar">$</span>
+              {currency.marketCap}
+            </CardText>
+            <CardText>
+              <span className="Detail-title">24H Volume</span>
+              <span className="Detail-dollar">$</span>
+              {currency.volume24h}
+            </CardText>
+            <CardText>
+              <span className="Detail-title">Total supply</span>
+              {currency.totalSupply}
+            </CardText>
+          </Card>
+
+        </div>
       </div>
     );
   }
 }
+Detail.PropTypes = {
+  currency: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.string,
+  getById: PropTypes.func.isRequired,
 
+}
 export default Detail;

@@ -6,8 +6,8 @@ import PerfectScrollbar from 'perfect-scrollbar';
 var ps;
 
 class DashboardLayout extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
     }
     componentDidMount() {
         if (navigator.platform.indexOf("Win") > -1) {
@@ -26,7 +26,7 @@ class DashboardLayout extends Component {
             <div className="wrapper">
                 <Sidebar />
                 <div className="main-panel" ref="mainPanel">
-                    <Header logout={this.logout} />
+                    <Header/>
                     {this.props.children}
                 </div>
             </div>

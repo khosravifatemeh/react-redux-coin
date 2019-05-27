@@ -1,93 +1,87 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Search from './Search';
+import React,{useState} from 'react';
+import { Link,withRouter } from 'react-router-dom';
+import Search from '../../container/SearchContainer';
+import * as authentication from '../../services/authentication';
+import PropTypes from 'prop-types';
 import logo from '../../assets/images/logo.png';
-import { Navbar, Container, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem,  Dropdown,
+import {
+  Navbar, Container, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap'
+  DropdownItem
+} from 'reactstrap'
 import '../../assets/css/Header.css';
-
-class Header extends React.Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      isOpen: false,
-      color: "transparent"
-    };
-    this.toggle = this.toggle.bind(this);
+const Header=({history})=>{
+const [flag,setFlag]=useState({isOpen:false,dropdownOpen:false})
+    
+ const toggle=()=> {
+  setFlag({...flag,isOpen:!flag.isOpen})
+ 
   }
-  toggle() {
-
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+ const dropdownToggle=()=> {
+    
+    setFlag({...flag,dropdownOpen:!flag.dropdownOpen})
   }
-  dropdownToggle(e) {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+  const logout=()=>{
+    authentication.logout();
+    history.push('/')
   }
-render(){
+ 
   return (
     <div className="Header">
-      <Navbar expand="lg" 
-       className="navbar-absolute fixed-top">
+      <Navbar expand="lg" className="navbar-absolute fixed-top">
         <Container fluid>
           <NavbarBrand href="/">
             <Link to="/">
               <img src={logo} alt="logo" className="Header-logo" />
             </Link>
           </NavbarBrand>
-          <NavbarToggler onClick={this.toggle}>
+          <NavbarToggler onClick={toggle}>
             <span className="navbar-toggler-bar bar1"></span>
             <span className="navbar-toggler-bar bar2"></span>
             <span className="navbar-toggler-bar bar3"></span>
           </NavbarToggler>
-          <Collapse navbar isOpen={this.state.isOpen}>
+          <Collapse navbar isOpen={flag.isOpen}>
 
             <Nav navbar>
               <NavItem>
-                <Link to="" className="nav-link">
+                <Link to="" onClick={()=>history.push("/")} className="nav-link">
                   Home
-                </Link>
+              </Link>
               </NavItem>
-              <NavItem>
-                <Link to="" className="nav-link">
-                  Features
-                </Link>
-              </NavItem>
+            
               <Dropdown
                 nav
-                isOpen={this.state.dropdownOpen}
-                toggle={e => this.dropdownToggle(e)}
+                isOpen={flag.dropdownOpen}
+                toggle={dropdownToggle}
               >
                 <DropdownToggle caret nav>
                   <i className="fa fa-user" />
                   <p>
-                  <span className="d-lg-none d-md-block">Pricing</span>
-                                    </p>
+                    <span className="d-lg-none d-md-block">Pricing</span>
+                  </p>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem tag="a" onClick={this.props.logout}>Log out</DropdownItem>
-              
+                  <DropdownItem tag="a" onClick={()=>logout()}>Log out</DropdownItem>
+
                 </DropdownMenu>
               </Dropdown>
-  
+
             </Nav>
-          <span className="d-flex col nopadding justify-content-end"><Search /></span>
+            <span className="d-flex col nopadding justify-content-end"><Search /></span>
 
           </Collapse>
 
         </Container>
- 
 
-    </Navbar>
-  </div>
-    );
+
+      </Navbar>
+    </div>
+  );
+};
+
+Header.PropTypes={
+  history: PropTypes.object.isRequired
 }
-}
-  
 
-
-export default Header;
+export default withRouter(Header);

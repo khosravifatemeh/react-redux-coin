@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Nav } from 'reactstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink,withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import logo from '../../assets/images/logo.png';
 
 class Sidebar extends Component {
     render() {
+        const { history } = this.props;
         return (
             <div className="sidebar" data-color="blue">
                 <div className="logo">
@@ -18,18 +20,13 @@ class Sidebar extends Component {
                 <div className="sidebar-wrapper ps">
                     <Nav>
                         <li className="active">
-                            <NavLink to="" className="nav-link" activeClassName="active">
-                                <i></i>
-                                <p className="text-center">Home</p>
-                            </NavLink>
-                         
-                        </li>
-                        <li>
-                        <NavLink to="" className="nav-link" activeClassName="active">
+                            <NavLink to="" onClick={()=>history.push("/")} className="nav-link" activeClassName="active">
                                 <i></i>
                                 <p className="text-center">Coins</p>
                             </NavLink>
+                         
                         </li>
+                      
 
                     </Nav>
                 </div>
@@ -37,5 +34,8 @@ class Sidebar extends Component {
         );
     }
 }
-
-export default Sidebar;
+Sidebar.propTypes = {
+    history: PropTypes.object.isRequired,
+   
+  }
+export default withRouter(Sidebar);

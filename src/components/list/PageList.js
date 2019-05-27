@@ -9,7 +9,7 @@ const PageList = (props) => {
   return (
     <Pagination size="lg" className="PageList">
       <PaginationItem>
-        <PaginationLink first />
+        <PaginationLink first onClick={() => handlePaginationClick('first')} />
       </PaginationItem>
       <PaginationItem>
         <PaginationLink previous onClick={() => handlePaginationClick('prev')} disabled={page <= 1} />
@@ -25,7 +25,7 @@ const PageList = (props) => {
         <PaginationLink next disabled={page === totalPages} onClick={() => handlePaginationClick('next')} />
       </PaginationItem>
       <PaginationItem>
-        <PaginationLink last />
+        <PaginationLink last onClick={() => handlePaginationClick('last')} />
       </PaginationItem>
     </Pagination>
 

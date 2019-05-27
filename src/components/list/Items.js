@@ -7,7 +7,9 @@ import '../../assets/css/Items.css';
 
 const Items = (props) => {
   const { history, currencies } = props;
-
+if(!currencies){
+return '';
+}
   return (
     <div className="Table-container">
       <Table className="Table" borderless>
