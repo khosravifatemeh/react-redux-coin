@@ -6,7 +6,7 @@
     "react-scripts": "1.1.0"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.6.1",
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.6.0",
     "react": "^16.8.6",
